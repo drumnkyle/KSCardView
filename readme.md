@@ -13,7 +13,9 @@ This makes for a very simple, gesture-based UI that can be incorporated into any
 - Read through and run `KSCardViewDemo`, included in the source code.
 - To use in your own application: 
 	- Add `KSCardView.h` and `KSCardView.m` to your project.
+
 ___
+
 
 ## Features
 
@@ -102,7 +104,9 @@ There are 3 different types of configurations you can make for KSCardView.
 	- You can set any direction to disabled, like so:
 		```cardView.allowUp = NO;```
 	- The card will then not move in that direction when dragged.
+
 ___
+
 
 ### More Information
 
