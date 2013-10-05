@@ -5,8 +5,10 @@ KSCardView is a robust, customizable, easy to use, subclass of UIView for iOS. K
 
 This makes for a very simple, gesture-based UI that can be incorporated into any number of apps. Any amount of subviews can be added to it just like a standard UIView.
 
+**Tested with iOS 6.1 and iOS 7.**
+
 ## How To Get Started
-- [Download KSCardView](https://XXX/) and try out the included `KSCardViewDemo` app. It is made for iPhone but will run on iPad as well.
+- [Download KSCardView](https://github.com/drumnkyle/KSCardView/archive/master.zip) and try out the included `KSCardViewDemo` app. It is made for iPhone but will run on iPad as well.
 - Read this **README**.
 - Read through and run `KSCardViewDemo`, included in the source code.
 - To use in your own application: 
