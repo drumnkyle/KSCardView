@@ -185,6 +185,19 @@
     NSLog(@"%s", __FUNCTION__);
     [_allCards removeObjectAtIndex:_currentCount];
     BOOL success = YES;
+	
+	if (_allCards.count == 0)
+	{
+		// Show alert that there are no cards left
+		UIAlertView *noCards = [[UIAlertView alloc]
+                                        initWithTitle:@"No More Cards"
+                                        message:@"All cards have been removed."
+                                        delegate:self cancelButtonTitle:@"OK"
+                                        otherButtonTitles:nil];
+        [noCards show];
+		return;
+	}
+	
     if (_currentCount > _allCards.count - 1)
     {
         _currentCount--;
