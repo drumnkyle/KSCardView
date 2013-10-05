@@ -19,6 +19,20 @@ ___
 
 ## Features
 
+### Screenshots
+<table>
+<tr>
+<td><img src="Screenshots/Left.png" /></td>
+<td><img src="Screenshots/Up.png" /></td>
+<td><img src="Screenshots/Down.png" /></td>
+</tr>
+<tr>
+<td>Dragged Left (without overlay)</td> <td>Dragged Up</td> <td>Dragged Down</td>
+</tr>
+</table>
+
+***Note:** Left and Right have the same rotation animation when no overlay is specified. When an overlay is specified, they look similar to the Up and Down effect.*
+
 - The card can be dragged either to the left, right, top, or bottom of the screen.
 - When an edge of the card touches an edge of the screen, an animation occurs.
 - When the card is dragged far enough past an edge of the screen, a delegate function is called.
