@@ -36,4 +36,10 @@
 @property (nonatomic) KSCardView *currentCardView;
 @property (nonatomic) NSMutableArray *allCards;
 
+- (IBAction)demoUp:(id)sender;
+- (IBAction)demoDown:(id)sender;
+- (IBAction)demoLeft:(id)sender;
+- (IBAction)demoRight:(id)sender;
+- (IBAction)resetDemo:(id)sender;
+
 @end

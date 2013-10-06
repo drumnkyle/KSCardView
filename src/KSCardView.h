@@ -205,8 +205,45 @@
 /**
  @brief Presents the card from the bottom of the screen. Opacity increases
  from 0 to 1.
- */
+*/
 - (void)showFromBottom;
+
+/**
+ @pre Demo must be reset using demoReset.
+ @brief Moves the card from the center of the screen upwards and performs the
+ same animation as if someone dragged it. This can be used to demo the functionality
+ to the user and explain what it does.
+*/
+- (void)demoUp;
+
+/**
+ @pre Demo must be reset using demoReset.
+ @brief Moves the card from the center of the screen downwards and performs the
+ same animation as if someone dragged it. This can be used to demo the functionality
+ to the user and explain what it does.
+*/
+- (void)demoDown;
+
+/**
+ @pre Demo must be reset using demoReset.
+ @brief Moves the card from the center of the screen to the left and performs the
+ same animation as if someone dragged it. This can be used to demo the functionality
+ to the user and explain what it does.
+*/
+- (void)demoLeft;
+
+/**
+ @pre Demo must be reset using demoReset.
+ @brief Moves the card from the center of the screen to the right and performs the
+ same animation as if someone dragged it. This can be used to demo the functionality
+ to the user and explain what it does.
+*/
+- (void)demoRight;
+
+/**
+ @brief Reset card to it's starting position after a demo.
+*/
+- (void)demoReset;
 
 @end
 

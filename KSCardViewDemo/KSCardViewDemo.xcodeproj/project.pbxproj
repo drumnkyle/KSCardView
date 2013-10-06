@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		272A302B17FE834C00239C79 /* DeleteImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 272A302A17FE834C00239C79 /* DeleteImage.png */; };
 		272A302E17FE866C00239C79 /* ClockImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 272A302D17FE866C00239C79 /* ClockImage.png */; };
+		272A30301801275B00239C79 /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 272A302F1801275B00239C79 /* MainViewController.xib */; };
 		273F028217F76BE200774898 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 273F028117F76BE200774898 /* Foundation.framework */; };
 		273F028417F76BE200774898 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 273F028317F76BE200774898 /* CoreGraphics.framework */; };
 		273F028617F76BE200774898 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 273F028517F76BE200774898 /* UIKit.framework */; };
@@ -38,6 +39,7 @@
 /* Begin PBXFileReference section */
 		272A302A17FE834C00239C79 /* DeleteImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = DeleteImage.png; path = KSCardViewDemo/DeleteImage.png; sourceTree = "<group>"; };
 		272A302D17FE866C00239C79 /* ClockImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ClockImage.png; path = KSCardViewDemo/ClockImage.png; sourceTree = "<group>"; };
+		272A302F1801275B00239C79 /* MainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
 		273F027E17F76BE200774898 /* KSCardViewDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KSCardViewDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		273F028117F76BE200774898 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		273F028317F76BE200774898 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -125,6 +127,7 @@
 				273F029117F76BE200774898 /* KSAppDelegate.m */,
 				273F02B917F7728A00774898 /* MainViewController.h */,
 				273F02BA17F7728A00774898 /* MainViewController.m */,
+				272A302F1801275B00239C79 /* MainViewController.xib */,
 				273F029317F76BE200774898 /* Images.xcassets */,
 				273F028817F76BE200774898 /* Supporting Files */,
 			);
@@ -238,6 +241,7 @@
 			files = (
 				272A302E17FE866C00239C79 /* ClockImage.png in Resources */,
 				272A302B17FE834C00239C79 /* DeleteImage.png in Resources */,
+				272A30301801275B00239C79 /* MainViewController.xib in Resources */,
 				273F028C17F76BE200774898 /* InfoPlist.strings in Resources */,
 				273F029417F76BE200774898 /* Images.xcassets in Resources */,
 			);

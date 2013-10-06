@@ -125,6 +125,32 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - Demo Button Actions
+- (IBAction)demoUp:(id)sender
+{
+	[_currentCardView demoUp];
+}
+
+- (IBAction)demoDown:(id)sender
+{
+	[_currentCardView demoDown];
+}
+
+- (IBAction)demoLeft:(id)sender
+{
+	[_currentCardView demoLeft];
+}
+
+- (IBAction)demoRight:(id)sender
+{
+	[_currentCardView demoRight];
+}
+
+- (IBAction)resetDemo:(id)sender
+{
+	[_currentCardView demoReset];
+}
+
 #pragma mark - Delegate functions
 - (void)cardDidLeaveLeftEdge:(KSCardView *)cardView
 {

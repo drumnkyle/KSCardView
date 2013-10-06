@@ -33,11 +33,28 @@ ___
 
 *Note: Left and Right have the same rotation animation when no overlay is specified. When an overlay is specified, they look similar to the Up and Down effect.*
 
+### Main Features
+
 - The card can be dragged either to the left, right, top, or bottom of the screen.
 - When an edge of the card touches an edge of the screen, an animation occurs.
 - When the card is dragged far enough past an edge of the screen, a delegate function is called.
 - The developer can implement the delegate function to perform a specific action based on the direction to which the card left the screen.
 - Built-in methods to display the card from off screen in any direction (left, right, top, or bottom).
+
+### Demo Mode
+
+You can utilize Demo Mode in order to display the animations of the UI without interaction. This can be used to make a help menu that explains what each gesture will do (drag left, drag right, drag up, and drag down).
+
+*The following methods are available for assisting in making a demo mode.*
+
+	- (void)demoUp;
+	- (void)demoDown;
+	- (void)demoLeft;
+	- (void)demoRight;
+	- (void)demoReset;
+	
+**Note:** *always call* `demoReset` *after calling any other demo method to reset the view before calling another demo method.*
+
 
 ## KSCardViewDemo
 
