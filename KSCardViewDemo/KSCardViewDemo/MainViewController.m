@@ -53,8 +53,8 @@
 {
     [super loadView];
     
-    _allCards = [[NSMutableArray alloc] init];
-    _currentCount = -1;
+    self.allCards = [[NSMutableArray alloc] init];
+    self.currentCount = -1;
     self.view.backgroundColor = [UIColor lightGrayColor];
     
     // Create cards
@@ -91,9 +91,9 @@
     cardView3.layer.opacity = 0.0f;
     
     // Add cards to array
-    [_allCards addObject:cardView];
-    [_allCards addObject:cardView2];
-    [_allCards addObject:cardView3];
+    [self.allCards addObject:cardView];
+    [self.allCards addObject:cardView2];
+    [self.allCards addObject:cardView3];
 }
 
 - (void)_addCardContent:(KSCardView *)cardView forCard:(NSUInteger)cardNumber
@@ -113,10 +113,10 @@
 {
     [super viewDidLoad];
     
-    _currentCount++;
-    _currentCardView = [_allCards objectAtIndex:_currentCount];
-    [self.view addSubview:_currentCardView];
-    [_currentCardView showFromLeft];
+    self.currentCount++;
+    self.currentCardView = [self.allCards objectAtIndex:self.currentCount];
+    [self.view addSubview:self.currentCardView];
+    [self.currentCardView showFromLeft];
 }
 
 - (void)didReceiveMemoryWarning
@@ -128,36 +128,41 @@
 #pragma mark - Demo Button Actions
 - (IBAction)demoUp:(id)sender
 {
-	[_currentCardView demoUp];
+    if (self.allCards.count != 0)
+        [self.currentCardView demoUp];
 }
 
 - (IBAction)demoDown:(id)sender
 {
-	[_currentCardView demoDown];
+    if (self.allCards.count != 0)
+        [self.currentCardView demoDown];
 }
 
 - (IBAction)demoLeft:(id)sender
 {
-	[_currentCardView demoLeft];
+    if (self.allCards.count != 0)
+        [self.currentCardView demoLeft];
 }
 
 - (IBAction)demoRight:(id)sender
 {
-	[_currentCardView demoRight];
+    if (self.allCards.count != 0)
+        [self.currentCardView demoRight];
 }
 
 - (IBAction)resetDemo:(id)sender
 {
-	[_currentCardView demoReset];
+    if (self.allCards.count != 0)
+        [self.currentCardView demoReset];
 }
 
 #pragma mark - Delegate functions
 - (void)cardDidLeaveLeftEdge:(KSCardView *)cardView
 {
     NSLog(@"%s", __FUNCTION__);
-    _currentCount++;
+    self.currentCount++;
     BOOL success = YES;
-    if (_currentCount > _allCards.count - 1)
+    if (self.currentCount > self.allCards.count - 1)
     {
         // No next card -- show alert
         UIAlertView *noNextAlert = [[UIAlertView alloc]
@@ -166,25 +171,25 @@
                                         delegate:self cancelButtonTitle:@"OK"
                                         otherButtonTitles:nil];
         [noNextAlert show];
-        _currentCount--;
+        self.currentCount--;
         success = NO;
     }
     
-    KSCardView *newCardView = [_allCards objectAtIndex:_currentCount];
-    [self.view addSubview:newCardView];
+    self.currentCardView = [_allCards objectAtIndex:_currentCount];
+    [self.view addSubview:self.currentCardView];
     
     if (success)
-        [newCardView showFromRight];
+        [self.currentCardView showFromRight];
     else
-        [newCardView showFromLeft];
+        [self.currentCardView showFromLeft];
 }
 
 - (void)cardDidLeaveRightEdge:(KSCardView *)cardView
 {
     NSLog(@"%s", __FUNCTION__);
-    _currentCount--;
+    self.currentCount--;
     BOOL success = YES;
-    if (_currentCount < 0)
+    if (self.currentCount < 0)
     {
         // No previous card -- show alert
         UIAlertView *noPreviousAlert = [[UIAlertView alloc]
@@ -193,26 +198,26 @@
                                         delegate:self cancelButtonTitle:@"OK"
                                         otherButtonTitles:nil];
         [noPreviousAlert show];
-        _currentCount++;
+        self.currentCount++;
         success = NO;
     }
     
-    KSCardView *newCardView = [_allCards objectAtIndex:_currentCount];
-    [self.view addSubview:newCardView];
+    self.currentCardView = [_allCards objectAtIndex:_currentCount];
+    [self.view addSubview:self.currentCardView];
     
     if (success)
-        [newCardView showFromLeft];
+        [self.currentCardView showFromLeft];
     else
-        [newCardView showFromRight];
+        [self.currentCardView showFromRight];
 }
 
 - (void)cardDidLeaveTopEdge:(KSCardView *)cardView
 {
     NSLog(@"%s", __FUNCTION__);
-    [_allCards removeObjectAtIndex:_currentCount];
+    [self.allCards removeObjectAtIndex:self.currentCount];
     BOOL success = YES;
 	
-	if (_allCards.count == 0)
+	if (self.allCards.count == 0)
 	{
 		// Show alert that there are no cards left
 		UIAlertView *noCards = [[UIAlertView alloc]
@@ -224,19 +229,19 @@
 		return;
 	}
 	
-    if (_currentCount > _allCards.count - 1)
+    if (self.currentCount > self.allCards.count - 1)
     {
-        _currentCount--;
+        self.currentCount--;
         success = NO;
     }
     
-    KSCardView *newCardView = [_allCards objectAtIndex:_currentCount];
-    [self.view addSubview:newCardView];
+    self.currentCardView = [_allCards objectAtIndex:_currentCount];
+    [self.view addSubview:self.currentCardView];
     
     if (success)
-        [newCardView showFromRight];
+        [self.currentCardView showFromRight];
     else
-        [newCardView showFromLeft];
+        [self.currentCardView showFromLeft];
 }
 
 - (void)cardDidLeaveBottomEdge:(KSCardView *)cardView
@@ -245,26 +250,26 @@
     BOOL success = YES;
     // Move current card to end
     // If at end, go to beginning
-    if (_currentCount == _allCards.count - 1)
+    if (self.currentCount == self.allCards.count - 1)
     {
-        _currentCount = 0;
+        self.currentCount = 0;
         success = NO;
     }
     
-    KSCardView *newCardView = [_allCards objectAtIndex:_currentCount];
+    self.currentCardView = [self.allCards objectAtIndex:self.currentCount];
     if (success)
     {
-        [_allCards removeObjectAtIndex:_currentCount];
-        [_allCards addObject:newCardView];
-        newCardView = [_allCards objectAtIndex:_currentCount];
-        [self.view addSubview:newCardView];
-        [newCardView showFromRight];
+        [self.allCards removeObjectAtIndex:self.currentCount];
+        [self.allCards addObject:self.currentCardView];
+        self.currentCardView = [self.allCards objectAtIndex:self.currentCount];
+        [self.view addSubview:self.currentCardView];
+        [self.currentCardView showFromRight];
     }
     else
     {
-        newCardView = [_allCards objectAtIndex:_currentCount];
-        [self.view addSubview:newCardView];
-        [newCardView showFromLeft];
+        self.currentCardView = [self.allCards objectAtIndex:self.currentCount];
+        [self.view addSubview:self.currentCardView];
+        [self.currentCardView showFromLeft];
     }
 }
 

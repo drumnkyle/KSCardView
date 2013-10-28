@@ -117,16 +117,16 @@ static BOOL s_hasDownOverlay = NO;
         "initialize this object";
         [NSException raise:@"No Frame Specified" format:@"%@", desc];
     }
-    _originalRect = s_cardFrame;
-    self = [super initWithFrame:_originalRect];
+    self.originalRect = s_cardFrame;
+    self = [super initWithFrame:self.originalRect];
     if (self)
     {
-        _allowUp = YES, _allowDown = YES, _allowLeft = YES, _allowRight = YES;
-        _originalCenter = self.center;
-        _antiShift = 0.0f;
-        _lastDirection = DirectionCount;
+        self.allowUp = YES, self.allowDown = YES, self.allowLeft = YES, self.allowRight = YES;
+        self.originalCenter = self.center;
+        self.antiShift = 0.0f;
+        self.lastDirection = DirectionCount;
         self.multipleTouchEnabled = YES;
-        _firstEdgeHit = YES;
+        self.firstEdgeHit = YES;
     }
     return self;
 }
@@ -143,7 +143,7 @@ static BOOL s_hasDownOverlay = NO;
     [UIView animateWithDuration:0.5f animations:^{
         self.layer.opacity = 1.0f;
         self.transform = CGAffineTransformMakeRotation(0);
-        self.center = _originalCenter;
+        self.center = self.originalCenter;
     }];
 }
 
@@ -155,7 +155,7 @@ static BOOL s_hasDownOverlay = NO;
     [UIView animateWithDuration:0.5f animations:^{
         self.layer.opacity = 1.0f;
         self.transform = CGAffineTransformMakeRotation(0);
-        self.center = _originalCenter;
+        self.center = self.originalCenter;
     }];
 }
 
@@ -165,7 +165,7 @@ static BOOL s_hasDownOverlay = NO;
     self.center = CGPointMake(self.superview.center.x, -self.superview.frame.size.height / 2);
     [UIView animateWithDuration:0.5f animations:^{
         self.layer.opacity = 1.0f;
-        self.center = _originalCenter;
+        self.center = self.originalCenter;
     }];
 }
 
@@ -175,7 +175,7 @@ static BOOL s_hasDownOverlay = NO;
     self.center = CGPointMake(self.superview.center.x, 1.5 * self.superview.frame.size.height);
     [UIView animateWithDuration:0.5f animations:^{
         self.layer.opacity = 1.0f;
-        self.center = _originalCenter;
+        self.center = self.originalCenter;
     }];
 }
 
@@ -291,7 +291,7 @@ static BOOL s_hasDownOverlay = NO;
 - (void)demoReset
 {
 	[UIView animateWithDuration:0.25f animations:^{
-		self.center = _originalCenter;
+		self.center = self.originalCenter;
 		self.alpha = 1.0f;
 		self.transform = CGAffineTransformMakeRotation(0);
 		for (UIView *view in [s_overlayContainer subviews])
@@ -316,7 +316,7 @@ static BOOL s_hasDownOverlay = NO;
 {
     if (touches.count == 1)
     {
-        _touchCount = 0;
+        self.touchCount = 0;
         [self addSubview:s_overlayContainer];
     }
 }
@@ -325,17 +325,17 @@ static BOOL s_hasDownOverlay = NO;
 {
     if (touches.count == 1)
     {
-        _touchCount++;
-        if (_touchCount == 3)
+        self.touchCount++;
+        if (self.touchCount == 3)
         {
             // Decide whether you are translating laterally or vertically
-            if (abs(self.center.x - _originalCenter.x) >
-                abs(self.center.y - _originalCenter.y))
-                _moveLaterally = YES;
+            if (abs(self.center.x - self.originalCenter.x) >
+                abs(self.center.y - self.originalCenter.y))
+                self.moveLaterally = YES;
             else
-                _moveLaterally = NO;
+                self.moveLaterally = NO;
             
-            _firstEdgeHit = YES;
+            self.firstEdgeHit = YES;
         }
         
         CGPoint center = self.center;
@@ -343,26 +343,26 @@ static BOOL s_hasDownOverlay = NO;
         CGPoint currentLoc = [touch locationInView:self];
         CGPoint prevLoc = [touch previousLocationInView:self];
         
-        if (_touchCount < 3)
+        if (self.touchCount < 3)
         {
             center.x += (currentLoc.x - prevLoc.x);
             center.y += (currentLoc.y - prevLoc.y);
         }
-        else // _touchCount >= 3
+        else // self.touchCount >= 3
         {
-            if (_moveLaterally)
+            if (self.moveLaterally)
             {
-                if (currentLoc.x - prevLoc.x < 0.0f && !_allowLeft)
+                if (currentLoc.x - prevLoc.x < 0.0f && !self.allowLeft)
                     return;
-                else if (currentLoc.x - prevLoc.x > 0.0f && !_allowRight)
+                else if (currentLoc.x - prevLoc.x > 0.0f && !self.allowRight)
                     return;
                 center.x += (currentLoc.x - prevLoc.x);
             }
             else
             {
-                if (currentLoc.y - prevLoc.y < 0.0f && !_allowUp)
+                if (currentLoc.y - prevLoc.y < 0.0f && !self.allowUp)
                     return;
-                else if (currentLoc.y - prevLoc.y > 0.0f && !_allowDown)
+                else if (currentLoc.y - prevLoc.y > 0.0f && !self.allowDown)
                     return;
                 center.y += (currentLoc.y - prevLoc.y);
             }
@@ -371,17 +371,17 @@ static BOOL s_hasDownOverlay = NO;
         self.center = center;
         
         // Rotate card outwards if moving laterally and edge has crossed border
-        if (_moveLaterally)
+        if (self.moveLaterally)
         {
             // Right Edge
             if ((self.center.x + self.frame.size.width / 2) >
                 self.superview.frame.size.width)
             {
                 [self _resetRotation:DirectionRight];
-				if (_firstEdgeHit)
+				if (self.firstEdgeHit)
                 {
-                    _firstEdgeHit = NO;
-                    _shift = CGPointMake(0, 0);
+                    self.firstEdgeHit = NO;
+                    self.shift = CGPointMake(0, 0);
                 }
 				_shift.x += (currentLoc.x - prevLoc.x);
                 [self _changeViewOpacityForDirection:DirectionRight];
@@ -400,10 +400,10 @@ static BOOL s_hasDownOverlay = NO;
             {
                 [self _resetRotation:DirectionLeft];
 				
-				if (_firstEdgeHit)
+				if (self.firstEdgeHit)
                 {
-                    _firstEdgeHit = NO;
-                    _shift = CGPointMake(0, 0);
+                    self.firstEdgeHit = NO;
+                    self.shift = CGPointMake(0, 0);
                 }
 				_shift.x += (currentLoc.x - prevLoc.x);
                 [self _changeViewOpacityForDirection:DirectionLeft];
@@ -429,10 +429,10 @@ static BOOL s_hasDownOverlay = NO;
             if ((self.center.y + self.frame.size.height / 2) >
                 self.superview.frame.size.height)
             {
-				if (_firstEdgeHit)
+				if (self.firstEdgeHit)
                 {
-                    _firstEdgeHit = NO;
-                    _shift = CGPointMake(0, 0);
+                    self.firstEdgeHit = NO;
+                    self.shift = CGPointMake(0, 0);
                 }
 				_shift.y += (currentLoc.y - prevLoc.y);
                 [self _changeViewOpacityForDirection:DirectionDown];
@@ -442,10 +442,10 @@ static BOOL s_hasDownOverlay = NO;
             // Top Edge
             else if ((self.center.y - self.frame.size.height / 2) < 0)
             {
-				if (_firstEdgeHit)
+				if (self.firstEdgeHit)
                 {
-                    _firstEdgeHit = NO;
-                    _shift = CGPointMake(0, 0);
+                    self.firstEdgeHit = NO;
+                    self.shift = CGPointMake(0, 0);
                 }
 				_shift.y += (currentLoc.y - prevLoc.y);
 				[self _changeViewOpacityForDirection:DirectionUp];
@@ -463,8 +463,8 @@ static BOOL s_hasDownOverlay = NO;
 {
     if (touches.count == 1)
     {
-        _touchCount = 0;
-        _firstEdgeHit = YES;
+        self.touchCount = 0;
+        self.firstEdgeHit = YES;
         // If the edge is past the border, do something
         // Otherwise, snap back to original location
         CGSize superSize = self.superview.frame.size;
@@ -509,8 +509,8 @@ static BOOL s_hasDownOverlay = NO;
 {
     if (touches.count == 1)
     {
-        _touchCount = 0;
-        _firstEdgeHit = YES;
+        self.touchCount = 0;
+        self.firstEdgeHit = YES;
     }
 }
 
@@ -554,7 +554,7 @@ static BOOL s_hasDownOverlay = NO;
     CGPoint cardCenter = self.center;
     BOOL isNegative = YES;
     BOOL isVertical = YES;
-    if (!_moveLaterally)
+    if (!self.moveLaterally)
     {
         if (abs(cardCenter.y - _originalCenter.y) > abs(cardCenter.x - _originalCenter.x))
         {
@@ -587,7 +587,7 @@ static BOOL s_hasDownOverlay = NO;
 
     [UIView animateWithDuration:kRubberBandDuration / 3.0f delay:0.0f options:UIViewAnimationOptionCurveEaseInOut
                      animations:^{
-                         CGPoint center = _originalCenter;
+                         CGPoint center = self.originalCenter;
                          if (!isNegative && isVertical)
                              center.y += kRubberBandFirstPass;
                          else if (isNegative && isVertical)
@@ -602,7 +602,7 @@ static BOOL s_hasDownOverlay = NO;
                          [self _hideViewOverlays];
                      } completion:^(BOOL finished){
                          [UIView animateWithDuration:kRubberBandDuration / 3.0f animations:^{
-                             CGPoint center = _originalCenter;
+                             CGPoint center = self.originalCenter;
                              if (!isNegative && isVertical)
                                  center.y -= kRubberBandSecondPass;
                              else if (isNegative && isVertical)
@@ -614,7 +614,7 @@ static BOOL s_hasDownOverlay = NO;
                              self.center = center;
                          } completion:^(BOOL finished){
                              [UIView animateWithDuration:kRubberBandDuration / 3.0f animations:^{
-                                 self.center = _originalCenter;
+                                 self.center = self.originalCenter;
                              }];
                          }];
                      }];
@@ -669,10 +669,10 @@ static BOOL s_hasDownOverlay = NO;
 - (void)_showOverlayWithDirection:(NSUInteger)direction currentLocation:(CGPoint)currentLoc
         previousLocation:(CGPoint)prevLoc
 {
-    if (_firstEdgeHit)
+    if (self.firstEdgeHit)
     {
-        _firstEdgeHit = NO;
-        _shift = CGPointMake(0, 0);
+        self.firstEdgeHit = NO;
+        self.shift = CGPointMake(0, 0);
     }
     
     if (direction == DirectionUp || direction == DirectionDown)
@@ -707,7 +707,7 @@ static BOOL s_hasDownOverlay = NO;
 
 - (void)_resetRotation:(NSUInteger)direction
 {
-    if (_lastDirection != direction)
+    if (self.lastDirection != direction)
     {
         [UIView animateWithDuration:0.2f animations:^{
             self.transform = CGAffineTransformMakeRotation(0);
