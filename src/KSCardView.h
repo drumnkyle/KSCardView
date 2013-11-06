@@ -124,7 +124,7 @@
  @brief The delegate of the view. Ensure that you set this delegate so that you
  can perform functions when the cards leaves the screen.
 */
-@property (nonatomic) id <KSCardViewDelegate> delegate;
+@property (nonatomic, weak) id <KSCardViewDelegate> delegate;
 
 /**
  @brief A flag that can be set to not allow the view to be moved to the left.
