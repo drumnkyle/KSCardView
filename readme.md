@@ -8,11 +8,18 @@ This makes for a very simple, gesture-based UI that can be incorporated into any
 **Tested with iOS 6.1 and iOS 7.**
 
 ## How To Get Started
+
+### CocoaPods
+I’ve recently added [KSCardView](https://github.com/CocoaPods/Specs/tree/master/KSCardView) to the [CocoaPods](https://github.com/CocoaPods/CocoaPods) package manager repo.
+
+CocoaPods is a tool for managing dependencies for OSX and iOS Xcode projects and provides a central repository for iOS/OSX libraries. This makes adding libraries to a project and updating them extremely easy and it will help users to resolve dependencies of the libraries they use.
+
 - [Download KSCardView](https://github.com/drumnkyle/KSCardView/archive/master.zip) and try out the included `KSCardViewDemo` app. It is made for iPhone but will run on iPad as well.
 - Read this **README**.
 - Read through and run `KSCardViewDemo`, included in the source code.
 - To use in your own application: 
 	- Add `KSCardView.h` and `KSCardView.m` to your project.
+	- Or install the CocoaPod into your project.
 
 ___
 
