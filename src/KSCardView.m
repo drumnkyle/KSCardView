@@ -316,8 +316,8 @@ static BOOL s_hasDownOverlay = NO;
 {
     if (touches.count == 1)
     {
-        self.touchCount = 0;
-        [self addSubview:s_overlayContainer];
+		self.touchCount = 0;
+		[self addSubview:s_overlayContainer];
     }
 }
 
@@ -337,9 +337,9 @@ static BOOL s_hasDownOverlay = NO;
             
             self.firstEdgeHit = YES;
         }
-        
+		
+        UITouch *touch = [[touches allObjects] firstObject];
         CGPoint center = self.center;
-        UITouch *touch = [[touches allObjects] objectAtIndex:0];
         CGPoint currentLoc = [touch locationInView:self];
         CGPoint prevLoc = [touch previousLocationInView:self];
         
@@ -512,6 +512,22 @@ static BOOL s_hasDownOverlay = NO;
         self.touchCount = 0;
         self.firstEdgeHit = YES;
     }
+}
+
+- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event
+{
+	for (UIView *view in self.subviews)
+	{
+		if ([view isKindOfClass:[UIScrollView class]])
+		{
+			if ([view pointInside:point withEvent:event])
+			{
+				return [view hitTest:point withEvent:event];
+			}
+		}
+	}
+	
+	return [super hitTest:point withEvent:event];
 }
 
 #pragma mark - Internal Functions
@@ -723,41 +739,32 @@ static BOOL s_hasDownOverlay = NO;
 			// Ensures the view doesn't rotate back the other direction.
 			if (_shift.y > 0)
 				_shift.y = 0;
-			self.layer.opacity = 1 + (kViewOpacityFactor * _shift.y / 100);
+			self.alpha = 1 + (kViewOpacityFactor * _shift.y / 100);
 			break;
 		case DirectionDown:
 			if (_shift.y < 0)
 				_shift.y = 0;
-			self.layer.opacity = 1 - (kViewOpacityFactor * _shift.y / 100);
+			self.alpha = 1 - (kViewOpacityFactor * _shift.y / 100);
 			break;
 		case DirectionLeft:
 			if (_shift.x > 0)
 				_shift.x = 0;
 			if (!s_hasLeftOverlay)
-				self.layer.opacity = 1 + (kViewRotationOpacityFactor * _shift.x / 100);
+				self.alpha = 1 + (kViewRotationOpacityFactor * _shift.x / 100);
 			else
-				self.layer.opacity = 1 + (kViewOpacityFactor * _shift.x / 100);
+				self.alpha = 1 + (kViewOpacityFactor * _shift.x / 100);
 			break;
 		case DirectionRight:
 			if (_shift.x < 0)
 				_shift.x = 0;
 			if (!s_hasLeftOverlay)
-				self.layer.opacity = 1 - (kViewRotationOpacityFactor * _shift.x / 100);
+				self.alpha = 1 - (kViewRotationOpacityFactor * _shift.x / 100);
 			else
-				self.layer.opacity = 1 - (kViewOpacityFactor * _shift.x / 100);
+				self.alpha = 1 - (kViewOpacityFactor * _shift.x / 100);
 			break;
 		default:
 			break;
 	}
 }
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
 
 @end
