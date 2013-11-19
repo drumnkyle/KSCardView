@@ -118,7 +118,7 @@
 @protocol KSCardViewDelegate;
 
 
-@interface KSCardView : UIView <UIGestureRecognizerDelegate>
+@interface KSCardView : UIView
 
 /**
  @brief The delegate of the view. Ensure that you set this delegate so that you

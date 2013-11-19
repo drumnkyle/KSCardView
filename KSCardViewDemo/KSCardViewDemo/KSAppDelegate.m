@@ -30,7 +30,6 @@
 
 #import "KSAppDelegate.h"
 #import "MainViewController.h"
-#import "KSMainTableViewController.h"
 
 @implementation KSAppDelegate
 
@@ -39,8 +38,7 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
-    //MainViewController *mainViewController = [[MainViewController alloc] initWithNibName:@"MainViewController" bundle:nil];
-	KSMainTableViewController *mainViewController = [[KSMainTableViewController alloc] initWithNibName:@"KSMainTableViewController" bundle:nil];
+    MainViewController *mainViewController = [[MainViewController alloc] initWithNibName:@"MainViewController" bundle:nil];
     [self.window setRootViewController:mainViewController];
     [self.window makeKeyAndVisible];
     return YES;
