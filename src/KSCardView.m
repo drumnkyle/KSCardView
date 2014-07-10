@@ -56,6 +56,9 @@ static BOOL s_hasUpOverlay = NO;
 static BOOL s_hasDownOverlay = NO;
 
 @interface KSCardView ()
+{
+	CGContextRef _ctx;
+}
 
 @property (nonatomic, assign) CGRect originalRect;
 @property (nonatomic, assign) CGPoint originalCenter;
@@ -342,7 +345,7 @@ static BOOL s_hasDownOverlay = NO;
         CGPoint center = self.center;
         CGPoint currentLoc = [touch locationInView:self];
         CGPoint prevLoc = [touch previousLocationInView:self];
-        
+
         if (self.touchCount < 3)
         {
             center.x += (currentLoc.x - prevLoc.x);
@@ -378,6 +381,7 @@ static BOOL s_hasDownOverlay = NO;
                 self.superview.frame.size.width)
             {
                 [self _resetRotation:DirectionRight];
+				self.lastDirection = DirectionRight;
 				if (self.firstEdgeHit)
                 {
                     self.firstEdgeHit = NO;
@@ -393,13 +397,13 @@ static BOOL s_hasDownOverlay = NO;
                     return;
                 }
                 // Rotate to the right
-                self.transform = CGAffineTransformMakeRotation(kRotationFactor * _shift.x * M_PI / 180);
+				self.transform = CGAffineTransformMakeRotation(kRotationFactor * _shift.x * M_PI / 180);
             }
             // Left Edge
             else if ((self.center.x - self.frame.size.width / 2) < 0)
             {
                 [self _resetRotation:DirectionLeft];
-				
+				self.lastDirection = DirectionLeft;
 				if (self.firstEdgeHit)
                 {
                     self.firstEdgeHit = NO;
@@ -456,7 +460,7 @@ static BOOL s_hasDownOverlay = NO;
                 [self _hideViewOverlays];
             }
         }
-    }
+	}
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
@@ -723,7 +727,7 @@ static BOOL s_hasDownOverlay = NO;
 
 - (void)_resetRotation:(NSUInteger)direction
 {
-    if (self.lastDirection != direction)
+    if (self.lastDirection != direction && self.lastDirection != DirectionCount)
     {
         [UIView animateWithDuration:0.2f animations:^{
             self.transform = CGAffineTransformMakeRotation(0);
