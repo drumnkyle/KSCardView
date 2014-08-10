@@ -72,7 +72,7 @@ static BOOL s_hasDownOverlay = NO;
 + (void)_addOverlay:(UIView *)image withDirection:(NSUInteger)direction;
 - (void)_rubberBand;
 - (void)_hideViewOverlays;
-- (void)_cardLeaves:(NSUInteger)direction;
+- (void)_cardLeaves:(NSUInteger)direction withRotation:(BOOL)shouldRotate;
 - (void)_showOverlayWithDirection:(NSUInteger)direction currentLocation:(CGPoint)currentLoc
         previousLocation:(CGPoint)prevLoc;
 - (void)_resetRotation:(NSUInteger)direction;
@@ -314,6 +314,31 @@ static BOOL s_hasDownOverlay = NO;
 	}];
 }
 
+#pragma mark - Leave Programmatically
+- (void)leaveLeft
+{
+	[self _cardLeaves:DirectionLeft withRotation:YES];
+	[self.delegate cardDidLeaveLeftEdge:self];
+}
+
+- (void)leaveRight
+{
+	[self _cardLeaves:DirectionRight withRotation:YES];
+	[self.delegate cardDidLeaveRightEdge:self];
+}
+
+- (void)leaveTop
+{
+	[self _cardLeaves:DirectionUp withRotation:NO];
+	[self.delegate cardDidLeaveTopEdge:self];
+}
+
+- (void)leaveBottom
+{
+	[self _cardLeaves:DirectionDown withRotation:NO];
+	[self.delegate cardDidLeaveBottomEdge:self];
+}
+
 #pragma mark - Touch Handlers
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
@@ -479,25 +504,25 @@ static BOOL s_hasDownOverlay = NO;
         if (self.center.x > (superSize.width - kHorizontalEdgeOffset))
         {
             outRight = YES;
-            [self _cardLeaves:DirectionRight];
+            [self _cardLeaves:DirectionRight withRotation:NO];
             return [self.delegate cardDidLeaveRightEdge:self];
         }
         else if ((self.center.x - kHorizontalEdgeOffset) < 0.0f)
         {
             outLeft = YES;
-            [self _cardLeaves:DirectionLeft];
+            [self _cardLeaves:DirectionLeft withRotation:NO];
             return [self.delegate cardDidLeaveLeftEdge:self];
         }
         else if (self.center.y > (superSize.height - kVerticalEdgeOffset))
         {
             outBottom = YES;
-            [self _cardLeaves:DirectionDown];
+            [self _cardLeaves:DirectionDown withRotation:NO];
             return [self.delegate cardDidLeaveBottomEdge:self];
         }
         else if ((self.center.y - kVerticalEdgeOffset) < 0.0f)
         {
             outTop = YES;
-            [self _cardLeaves:DirectionUp];
+            [self _cardLeaves:DirectionUp withRotation:NO];
             return [self.delegate cardDidLeaveTopEdge:self];
         }
         
@@ -657,7 +682,7 @@ static BOOL s_hasDownOverlay = NO;
     }
 }
 
-- (void)_cardLeaves:(NSUInteger)direction
+- (void)_cardLeaves:(NSUInteger)direction withRotation:(BOOL)shouldRotate
 {
     CGPoint end = CGPointMake(0, 0);
     // TODO: Add compatibility for all screen sizes
@@ -682,6 +707,10 @@ static BOOL s_hasDownOverlay = NO;
     [UIView animateWithDuration:kCardLeavesDuration animations:^{
         self.center = end;
         self.layer.opacity = 0.0f;
+		if (shouldRotate)
+		{
+			self.transform = CGAffineTransformMakeRotation(-kStartRotation * M_PI / 180);
+		}
     }];
     [self _hideViewOverlays];
 }

@@ -245,6 +245,30 @@
 */
 - (void)demoReset;
 
+/**
+ @brief Make card leave the screen to the left. This will also call the delegate method. Allows the
+ developer to control the card programmatically.
+*/
+- (void)leaveLeft;
+
+/**
+ @brief Make card leave the screen to the right. This will also call the delegate method. Allows the
+ developer to control the card programmatically.
+*/
+- (void)leaveRight;
+
+/**
+ @brief Make card leave the screen at the top. This will also call the delegate method. Allows the
+ developer to control the card programmatically.
+*/
+- (void)leaveTop;
+
+/**
+ @brief Make card leave the screen at the bottom. This will also call the delegate method. Allows the
+ developer to control the card programmatically.
+*/
+- (void)leaveBottom;
+
 @end
 
 @protocol KSCardViewDelegate
