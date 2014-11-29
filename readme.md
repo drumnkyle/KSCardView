@@ -10,7 +10,7 @@ This makes for a very simple, gesture-based UI that can be incorporated into any
 ## How To Get Started
 
 ### CocoaPods
-I’ve recently added [KSCardView](https://github.com/CocoaPods/Specs/tree/master/KSCardView) to the [CocoaPods](https://github.com/CocoaPods/CocoaPods) package manager repo.
+[KSCardView](https://github.com/CocoaPods/Specs/tree/master/KSCardView) is available as a Cocoapod and is added to the [CocoaPods](https://github.com/CocoaPods/CocoaPods) package manager repo.
 
 CocoaPods is a tool for managing dependencies for OSX and iOS Xcode projects and provides a central repository for iOS/OSX libraries. This makes adding libraries to a project and updating them extremely easy and it will help users to resolve dependencies of the libraries they use.
 
@@ -168,5 +168,3 @@ ____
 - Follow me on Twitter ([@drumnkyle](https://twitter.com/drumnkyle)).
 
 - Email me at [kyledsherman@gmail.com](mailto:kyledsherman@gmail.com).
-
-- Check out my [Blog](http://kyle.rulostapp.com/).
